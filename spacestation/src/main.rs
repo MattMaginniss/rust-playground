@@ -96,6 +96,14 @@ fn repair(broken_section: String, station: &mut Station, station_log: &mut Vec<S
     station_log.push(format!("Bleep bloop doing fixing in: {}", section));
 }
 
+#[derive(Debug, RandGen)]
+struct Station {
+    name: Name,
+    version: u8,
+    sections: Vec<Section>,
+    day: u16,
+}
+
 #[derive(Debug, RandGen, Display)]
 enum Name {
     Gary,
@@ -105,33 +113,6 @@ enum Name {
     Intrepid,
     Nova,
     Reliant,
-}
-
-#[derive(Debug, RandGen, Display, Eq, PartialEq, EnumString)]
-enum SectionName {
-    AstroScience,
-    SolarPanels,
-    Antenna,
-    Radiators,
-    Quarters,
-    NuclearGenerator,
-    Galley,
-    Transponder,
-    Tracking,
-}
-
-#[derive(Debug, RandGen, Eq, PartialEq)]
-struct Section {
-    name: SectionName,
-    active: bool,
-}
-
-#[derive(Debug, RandGen)]
-struct Station {
-    name: Name,
-    version: u8,
-    sections: Vec<Section>,
-    day: u16,
 }
 
 impl Station {
@@ -186,4 +167,23 @@ impl Station {
     fn status(&self) {
         dbg!(&self);
     }
+}
+
+#[derive(Debug, RandGen, Eq, PartialEq)]
+struct Section {
+    name: SectionName,
+    active: bool,
+}
+
+#[derive(Debug, RandGen, Display, Eq, PartialEq, EnumString)]
+enum SectionName {
+    AstroScience,
+    SolarPanels,
+    Antenna,
+    Radiators,
+    Quarters,
+    NuclearGenerator,
+    Galley,
+    Transponder,
+    Tracking,
 }
