@@ -23,6 +23,14 @@ fn main() {
         "Space Station Named: {} {}",
         station.name, station.version
     ));
+    station_log.push(format!(
+        "We have these working sections: {:?}",
+        station.working_sections()
+    ));
+    station_log.push(format!(
+        "We have these broken sections: {:?}",
+        station.broken_sections()
+    ));
     loop {
         // main game loop!
         let days_left = station.days_left();
