@@ -37,8 +37,8 @@ fn main() {
         // main game loop!
         let days_left = station.days_left();
         if days_left < 1 {
-            station_log.push("(END-TRANSMISSION)".to_string());
-            println!("(END-TRANSMISSION)");
+            station_log.push("#### END-TRANSMISSION ####".to_string());
+            println!("#### END-TRANSMISSION ####");
             save_log(&station_log, &mut station);
             break;
         }
@@ -186,15 +186,14 @@ impl Station {
             let break_it = Self::is_successful();
             if break_it {
                 broken_section.active = false;
-                println!("(Section-FAILURE {})", &broken_section.name);
-                format!("(Section-FAILURE {})", &broken_section.name)
+                println!("CATESTROPHIC FAILURE in {}", &broken_section.name);
+                format!("CATESTROPHIC FAILURE in {}", &broken_section.name)
             } else {
-                println!("(sections OK)");
-                "(sections OK)".to_string()
+                "sections OK".to_string()
             }
         } else {
-            println!("(sections OK)");
-            "(sections OK)".to_string()
+            println!("Sections OK");
+            "Sections OK".to_string()
         }
     }
 
