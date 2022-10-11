@@ -26,7 +26,9 @@ fn fizz_buzz() {
 fn palindrome_checker() {
     is_palindrome("word");
     is_palindrome("racecar");
+    is_palindrome("Esme");
     is_palindrome("RaCEcAr");
+    is_palindrome("spooky");
     is_palindrome("poopy");
     is_palindrome("gary");
     is_palindrome("poop");
