@@ -183,13 +183,23 @@ impl Station {
         let broken_index = thread_rng().gen_range(0..self.sections.len());
         let mut broken_section = &mut self.sections[broken_index];
         if broken_section.active {
-            broken_section.active = false;
-            println!("(Section-FAILURE {})", &broken_section.name);
-            format!("(Section-FAILURE {})", &broken_section.name)
+            let break_it = Self::is_successful();
+            if break_it {
+                broken_section.active = false;
+                println!("(Section-FAILURE {})", &broken_section.name);
+                format!("(Section-FAILURE {})", &broken_section.name)
+            } else {
+                println!("(sections OK)");
+                "(sections OK)".to_string()
+            }
         } else {
             println!("(sections OK)");
             "(sections OK)".to_string()
         }
+    }
+
+    fn is_successful() -> bool {
+        thread_rng().gen_bool(0.5)
     }
 
     fn status(&self) {
