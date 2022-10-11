@@ -2,6 +2,8 @@ use inquire::Select;
 use inquire::Text;
 use rand::{random, thread_rng, Rng};
 use rand_derive2::RandGen;
+use std::fs::OpenOptions;
+use std::io::Write;
 use std::str::FromStr;
 use strum_macros::Display;
 use strum_macros::EnumString;
@@ -35,7 +37,9 @@ fn main() {
         // main game loop!
         let days_left = station.days_left();
         if days_left < 1 {
+            station_log.push("(END-TRANSMISSION)".to_string());
             println!("(END-TRANSMISSION)");
+            save_log(&station_log, &mut station);
             break;
         }
         print!("Day {0}: ", station.day);
@@ -74,7 +78,10 @@ fn main() {
                 }
             }
             "STATUS" => station.status(),
-            "POWERDOWN" => break,
+            "POWERDOWN" => {
+                save_log(&station_log, &mut station);
+                break;
+            }
             &_ => panic!("RADIATION ANOMALY. DEATH IMMINENT"),
         }
     }
@@ -102,6 +109,19 @@ fn repair(broken_section: String, station: &mut Station, station_log: &mut Vec<S
 
     station.sections[broken_index].active = true;
     station_log.push(format!("Bleep bloop doing fixing in: {}", section));
+}
+
+fn save_log(station_log: &Vec<String>, station: &mut Station) {
+    let mut file = OpenOptions::new()
+        .append(true)
+        .create_new(true)
+        .open(format!("{}{}.txt", station.name, station.version))
+        .unwrap();
+
+    for log in station_log.iter() {
+        let write_result = file.write(format!("{}\n", log).as_bytes());
+        println!("{}", write_result.is_ok());
+    }
 }
 
 #[derive(Debug, RandGen)]
