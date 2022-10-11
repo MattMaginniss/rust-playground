@@ -1,8 +1,8 @@
 fn main() {
     println!("Hello, world!");
-    println!("\nFizz Buzz");
+    println!("\nFizz Buzz:");
     fizz_buzz();
-    println!("\nPalindromes");
+    println!("\nPalindromes:");
     palindrome_checker();
 }
 
@@ -24,19 +24,20 @@ fn fizz_buzz() {
 }
 
 fn palindrome_checker() {
-    println!("{}", is_palindrome("word"));
-    println!("{}", is_palindrome("racecar"));
-    println!("{}", is_palindrome("RaCEcAr"));
-    println!("{}", is_palindrome("poopy"));
-    println!("{}", is_palindrome("gary"));
-    println!("{}", is_palindrome("poop"));
+    is_palindrome("word");
+    is_palindrome("racecar");
+    is_palindrome("RaCEcAr");
+    is_palindrome("poopy");
+    is_palindrome("gary");
+    is_palindrome("poop");
 }
 
 fn is_palindrome(word: &str) -> bool {
+    let palindrome_value =
+        word.to_lowercase() == word.to_lowercase().chars().rev().collect::<String>();
     println!(
-        "{0} - {1}",
-        word.to_lowercase(),
-        word.to_lowercase().chars().rev().collect::<String>()
+        "{word} {} a palindrome",
+        if palindrome_value { "is" } else { "is not" }
     );
-    word.to_lowercase() == word.to_lowercase().chars().rev().collect::<String>()
+    palindrome_value
 }
