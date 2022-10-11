@@ -111,7 +111,7 @@ fn repair(broken_section: String, station: &mut Station, station_log: &mut Vec<S
     station_log.push(format!("Bleep bloop doing fixing in: {}", section));
 }
 
-fn save_log(station_log: &Vec<String>, station: &mut Station) {
+fn save_log(station_log: &[String], station: &mut Station) {
     let mut file = OpenOptions::new()
         .append(true)
         .create_new(true)
