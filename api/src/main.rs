@@ -21,6 +21,26 @@ fn farts() -> &'static str {
     "Oops!...I did it again"
 }
 
+#[get("/add/<num1>/<num2>")]
+fn add(num1: i64, num2: i64) -> String {
+    (num1 + num2).to_string()
+}
+
+#[get("/subtract/<num1>/<num2>")]
+fn subtract(num1: i64, num2: i64) -> String {
+    (num1 - num2).to_string()
+}
+
+#[get("/multiply/<base>/<multiplier>")]
+fn multiply(base: i64, multiplier: i64) -> String {
+    (base * multiplier).to_string()
+}
+
+#[get("/divide/<num1>/<num2>")]
+fn divide(num1: f64, num2: f64) -> String {
+    (num1 / num2).to_string()
+}
+
 #[launch]
 fn rocket() -> _ {
     println!("Hello, world!");
@@ -31,4 +51,8 @@ fn rocket() -> _ {
         .mount("/", routes![farts])
         .mount("/", routes![hello])
         .mount("/", routes![world])
+        .mount("/", routes![add])
+        .mount("/", routes![subtract])
+        .mount("/", routes![multiply])
+        .mount("/", routes![divide])
 }
