@@ -47,6 +47,20 @@ fn new_user(user: String) -> String {
     user
 }
 
+#[post("/calc_fibonacci", format = "text", data = "<limit>")]
+fn calc_fibonacci(limit: String) -> String {
+    let parsed_limit = str::parse(limit.as_str());
+    format!("{:?}", fibonacci(parsed_limit))
+}
+
+#[post("/post", format = "application/json", data = "<something>")]
+fn post_something(something: String) -> String {
+    format!(
+        "I am just giving you whatever you gave to us:\n{}",
+        something
+    )
+}
+
 #[launch]
 fn rocket() -> _ {
     println!("Hello, world!");
@@ -61,5 +75,21 @@ fn rocket() -> _ {
         .mount("/", routes![subtract])
         .mount("/", routes![multiply])
         .mount("/", routes![divide])
+        .mount("/", routes![calc_fibonacci])
         .mount("/", routes![new_user])
+        .mount("/", routes![post_something])
+}
+
+fn fibonacci(limit: i32) -> Vec<i32> {
+    let mut list_of_numbers: Vec<i32> = vec![0, 1];
+    let mut current_index = 1;
+    let mut next_number = 1;
+    while next_number <= limit {
+        next_number = list_of_numbers[current_index - 1] + list_of_numbers[current_index];
+        if next_number <= limit {
+            list_of_numbers.push(next_number);
+            current_index += 1;
+        }
+    }
+    list_of_numbers
 }
