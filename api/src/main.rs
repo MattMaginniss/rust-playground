@@ -41,6 +41,12 @@ fn divide(num1: f64, num2: f64) -> String {
     (num1 / num2).to_string()
 }
 
+#[post("/user", format = "application/json", data = "<user>")]
+fn new_user(user: String) -> String {
+    println!("{}", user);
+    user
+}
+
 #[launch]
 fn rocket() -> _ {
     println!("Hello, world!");
@@ -55,4 +61,5 @@ fn rocket() -> _ {
         .mount("/", routes![subtract])
         .mount("/", routes![multiply])
         .mount("/", routes![divide])
+        .mount("/", routes![new_user])
 }
