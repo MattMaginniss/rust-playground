@@ -49,7 +49,7 @@ fn new_user(user: String) -> String {
 
 #[post("/calc_fibonacci", format = "text", data = "<limit>")]
 fn calc_fibonacci(limit: String) -> String {
-    let parsed_limit = str::parse(limit.as_str());
+    let parsed_limit = str::parse(limit.as_str()).unwrap();
     format!("{:?}", fibonacci(parsed_limit))
 }
 
