@@ -1,3 +1,8 @@
+use rand::{random, thread_rng, Rng};
+use rand_derive2::RandGen;
+use std::str::FromStr;
+use strum_macros::EnumString;
+
 #[macro_use]
 extern crate rocket;
 
@@ -68,9 +73,15 @@ fn post_something(something: String) -> String {
     )
 }
 
+#[post("/dice", format = "text", data = "<dice>")]
+fn dice(dice: String) -> String {
+    format!("{}", roll_dice(dice))
+}
+
 #[launch]
 fn rocket() -> _ {
     println!("Hello, world!");
+
     let rocket = rocket::build();
 
     rocket
@@ -85,6 +96,7 @@ fn rocket() -> _ {
         .mount("/", routes![calc_fibonacci])
         .mount("/", routes![new_user])
         .mount("/", routes![post_something])
+        .mount("/", routes![dice])
 }
 
 fn fibonacci(limit: i32) -> Vec<i32> {
@@ -99,4 +111,45 @@ fn fibonacci(limit: i32) -> Vec<i32> {
         }
     }
     list_of_numbers
+}
+
+#[derive(Debug, RandGen, Eq, PartialEq)]
+enum Dice {
+    D4,
+    D6,
+    D10,
+    D12,
+    D20,
+}
+
+impl FromStr for Dice {
+    type Err = ();
+
+    fn from_str(input: &str) -> Result<Dice, Self::Err> {
+        match input {
+            "d4" => Ok(Dice::D4),
+            "4" => Ok(Dice::D4),
+            "d6" => Ok(Dice::D6),
+            "6" => Ok(Dice::D6),
+            "d10" => Ok(Dice::D10),
+            "10" => Ok(Dice::D10),
+            "d12" => Ok(Dice::D12),
+            "12" => Ok(Dice::D12),
+            "d20" => Ok(Dice::D20),
+            "20" => Ok(Dice::D20),
+            _ => Err(()),
+        }
+    }
+}
+
+fn roll_dice(dice: String) -> i32 {
+    let dice_name = Dice::from_str(dice.as_str()).unwrap();
+    let mut rng = thread_rng();
+    match dice_name {
+        Dice::D4 => rng.gen_range(1..4),
+        Dice::D6 => rng.gen_range(1..6),
+        Dice::D10 => rng.gen_range(1..10),
+        Dice::D12 => rng.gen_range(1..12),
+        Dice::D20 => rng.gen_range(1..20),
+    }
 }
