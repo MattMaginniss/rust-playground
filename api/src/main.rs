@@ -162,7 +162,7 @@ fn roll_dice(dice: String) -> i32 {
 
 fn roll_dice_x_times(dice: i32, times: i32) -> f32 {
     let mut total: i32 = 0;
-    for _i in 1..times {
+    for _i in 0..times {
         total += roll_dice(dice.to_string());
     }
     total as f32 / times as f32
