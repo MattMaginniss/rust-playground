@@ -78,6 +78,11 @@ fn dice(dice: String) -> String {
     format!("{}", roll_dice(dice))
 }
 
+#[get("/roll_x_times/<dice>/<times>")]
+fn roll_x_times(dice: i32, times: i32) -> String {
+    roll_dice_x_times(dice, times).to_string()
+}
+
 #[launch]
 fn rocket() -> _ {
     println!("Hello, world!");
@@ -97,6 +102,7 @@ fn rocket() -> _ {
         .mount("/", routes![new_user])
         .mount("/", routes![post_something])
         .mount("/", routes![dice])
+        .mount("/", routes![roll_x_times])
 }
 
 fn fibonacci(limit: i32) -> Vec<i32> {
@@ -152,4 +158,12 @@ fn roll_dice(dice: String) -> i32 {
         Dice::D12 => rng.gen_range(1..12),
         Dice::D20 => rng.gen_range(1..20),
     }
+}
+
+fn roll_dice_x_times(dice: i32, times: i32) -> f32 {
+    let mut total: i32 = 0;
+    for _i in 1..times {
+        total += roll_dice(dice.to_string());
+    }
+    total as f32 / times as f32
 }
