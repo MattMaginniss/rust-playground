@@ -49,8 +49,15 @@ fn new_user(user: String) -> String {
 
 #[post("/calc_fibonacci", format = "text", data = "<limit>")]
 fn calc_fibonacci(limit: String) -> String {
-    let parsed_limit = str::parse(limit.as_str()).unwrap();
-    format!("{:?}", fibonacci(parsed_limit))
+    match limit.as_str().parse::<i32>() {
+        Ok(parsed_limit) => {
+            format!("{:?}", fibonacci(parsed_limit))
+        }
+        Err(e) => {
+            println!("{:?}", e);
+            format!("{:?}", e)
+        }
+    }
 }
 
 #[post("/post", format = "application/json", data = "<something>")]
