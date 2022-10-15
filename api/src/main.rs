@@ -94,21 +94,24 @@ fn rocket() -> _ {
 
     let rocket = rocket::build();
 
-    rocket
-        .register("/", catchers![not_found])
-        .mount("/", routes![index])
-        .mount("/", routes![farts])
-        .mount("/", routes![hello])
-        .mount("/", routes![world])
-        .mount("/", routes![add])
-        .mount("/", routes![subtract])
-        .mount("/", routes![multiply])
-        .mount("/", routes![divide])
-        .mount("/", routes![calc_fibonacci])
-        .mount("/", routes![new_user])
-        .mount("/", routes![post_something])
-        .mount("/", routes![dice])
-        .mount("/", routes![roll_x_times])
+    rocket.register("/", catchers![not_found]).mount(
+        "/",
+        routes![
+            index,
+            farts,
+            hello,
+            world,
+            add,
+            subtract,
+            multiply,
+            divide,
+            calc_fibonacci,
+            new_user,
+            post_something,
+            dice,
+            roll_x_times
+        ],
+    )
 }
 
 fn fibonacci(limit: i32) -> Vec<i32> {
