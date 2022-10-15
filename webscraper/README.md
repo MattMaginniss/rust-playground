@@ -4,4 +4,4 @@ This is a little program of a little webscraper. Both for testing the language a
 
 ## Lessons Learned
 
-I have learned, NOTHING (because I haven't started)
+- I have learned, NOTHING (because I haven't started)
