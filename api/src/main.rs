@@ -57,7 +57,7 @@ fn new_user(user: String) -> String {
     user
 }
 
-#[post("/calc_fibonacci", format = "text", data = "<limit>")]
+#[post("/fibonacci", format = "text", data = "<limit>")]
 fn calc_fibonacci(limit: String) -> String {
     match limit.as_str().parse::<i32>() {
         Ok(parsed_limit) => {
