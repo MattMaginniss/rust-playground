@@ -1,7 +1,7 @@
-use rand::{random, thread_rng, Rng};
+use rand::{thread_rng, Rng};
 use rand_derive2::RandGen;
+use rocket::Request;
 use std::str::FromStr;
-use strum_macros::EnumString;
 
 #[macro_use]
 extern crate rocket;
@@ -9,6 +9,11 @@ extern crate rocket;
 #[get("/")]
 fn index() -> &'static str {
     "Hello, world!"
+}
+
+#[catch(404)]
+fn not_found(req: &Request) -> String {
+    format!("Sorry, '{}' is not a valid path.", req.uri())
 }
 
 #[get("/world")]
@@ -90,6 +95,7 @@ fn rocket() -> _ {
     let rocket = rocket::build();
 
     rocket
+        .register("/", catchers![not_found])
         .mount("/", routes![index])
         .mount("/", routes![farts])
         .mount("/", routes![hello])
