@@ -4,6 +4,7 @@ fn main() {
     fizz_buzz();
     println!("\nPalindromes:");
     palindrome_checker();
+    collatz(1253);
 }
 
 fn fizz_buzz() {
@@ -42,4 +43,20 @@ fn is_palindrome(word: &str) -> bool {
         if palindrome_value { "is" } else { "is not" }
     );
     palindrome_value
+}
+
+fn collatz(starting_num: u64) {
+    let mut steps = 0;
+    let mut current_num = starting_num;
+    println!("Starting at: {current_num}");
+    while current_num != 1 {
+        steps += 1;
+        if current_num % 2 == 0 {
+            current_num /= 2;
+        } else {
+            current_num = (current_num * 3) + 1;
+        }
+        println!("{current_num}");
+    }
+    println!("It took {steps} steps to get from {starting_num} to 1");
 }
