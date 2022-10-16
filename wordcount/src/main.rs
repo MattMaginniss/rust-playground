@@ -5,10 +5,9 @@ fn main() {
 
 fn character_count(input: String) -> i32 {
     let stripped_input: String = input.split_whitespace().collect();
-    match stripped_input.len().try_into() {
-        Ok(value) => value,
-        Err(_) => -1,
-    }
+    stripped_input.len().try_into().unwrap_or(-1)
+}
+
 fn word_count(input: String) -> i32 {
     input.split(' ').count().try_into().unwrap_or(-1)
 }
