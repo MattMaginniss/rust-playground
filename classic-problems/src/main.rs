@@ -48,6 +48,7 @@ fn is_palindrome(word: &str) -> bool {
 fn collatz(starting_num: u64) -> i32 {
     let mut steps = 0;
     let mut current_num = starting_num;
+    println!("\nCollatz Conjecture starting at: {current_num}");
     println!("Starting at: {current_num}");
     while current_num != 1 {
         steps += 1;
