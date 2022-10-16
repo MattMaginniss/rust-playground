@@ -25,6 +25,16 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_char_count_spaces() {
+        assert_eq!(character_count("    ".to_string()), 0);
+    }
+
+    #[test]
+    fn test_word_count_word_and_spaces() {
+        assert_eq!(character_count("     WORD   ".to_string()), 4);
+    }
+
+    #[test]
     fn test_char_count_hello() {
         assert_eq!(character_count("Hello".to_string()), 5);
     }
