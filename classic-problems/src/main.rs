@@ -62,3 +62,59 @@ fn collatz(starting_num: u64) -> i32 {
     println!("It took {steps} steps to get from {starting_num} to 1");
     steps
 }
+
+#[cfg(test)]
+mod tests {
+    // Note this useful idiom: importing names from outer (for mod tests) scope.
+    use super::*;
+
+    #[test]
+    fn test_palindrome_cats() {
+        assert!(!is_palindrome("cats"));
+    }
+
+    #[test]
+    fn test_palindrome_racecar() {
+        assert!(is_palindrome("racecar"));
+    }
+
+    #[test]
+    fn test_palindrome_racecar_caps() {
+        assert!(is_palindrome("raCeCAr"));
+    }
+
+    #[test]
+    fn test_palindrome_esme() {
+        assert!(!is_palindrome("Esme"));
+    }
+
+    #[test]
+    fn test_palindrome_spooky() {
+        assert!(!is_palindrome("Spooky"));
+    }
+
+    #[test]
+    fn test_collatz_9() {
+        assert_eq!(collatz(9), 19);
+    }
+
+    #[test]
+    fn test_collatz_97() {
+        assert_eq!(collatz(97), 118);
+    }
+
+    #[test]
+    fn test_collatz_871() {
+        assert_eq!(collatz(871), 178);
+    }
+
+    #[test]
+    fn test_collatz_6171() {
+        assert_eq!(collatz(6171), 261);
+    }
+
+    #[test]
+    fn test_collatz_989345275647() {
+        assert_eq!(collatz(989345275647), 1348);
+    }
+}
