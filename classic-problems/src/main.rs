@@ -45,7 +45,7 @@ fn is_palindrome(word: &str) -> bool {
     palindrome_value
 }
 
-fn collatz(starting_num: u64) {
+fn collatz(starting_num: u64) -> i32 {
     let mut steps = 0;
     let mut current_num = starting_num;
     println!("Starting at: {current_num}");
@@ -59,4 +59,5 @@ fn collatz(starting_num: u64) {
         println!("{current_num}");
     }
     println!("It took {steps} steps to get from {starting_num} to 1");
+    steps
 }
