@@ -1,6 +1,13 @@
 fn main() {
     println!("Hello, world!");
-    println!("{}", character_count("".to_owned()));
+    println!(
+        "Hello World characters: {}",
+        character_count("Hello World".to_owned())
+    );
+    println!(
+        "Hello World words: {}",
+        word_count("Hello World".to_owned())
+    );
 }
 
 fn character_count(input: String) -> i32 {
