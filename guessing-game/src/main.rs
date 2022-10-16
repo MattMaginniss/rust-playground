@@ -20,17 +20,21 @@ fn main() {
             Err(_) => continue,
         };
 
-        match guess.cmp(&correct_answer) {
-            Ordering::Less => println!("{}", "TOO LOW".red().italic()),
-            Ordering::Greater => println!("{}", "TOO HIGH".yellow().italic()),
-            Ordering::Equal => {
-                println!("{}", "You're right!".green().bold());
-                println!("It took you {guesses} guesses.");
-                println!("You won!");
-                println!("How does it feel?");
-                break;
+        if !(1..=100).contains(&guess) {
+            println!("You need to guess between 1-100. You entered {guess}");
+        } else {
+            match guess.cmp(&correct_answer) {
+                Ordering::Less => println!("{}", "TOO LOW".red().italic()),
+                Ordering::Greater => println!("{}", "TOO HIGH".yellow().italic()),
+                Ordering::Equal => {
+                    println!("{}", "You're right!".green().bold());
+                    println!("It took you {guesses} guesses.");
+                    println!("You won!");
+                    println!("How does it feel?");
+                    break;
+                }
             }
+            guesses += 1;
         }
-        guesses += 1;
     }
 }
